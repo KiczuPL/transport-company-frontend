@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router-dom";
 import ActiveOrders from './pages/ActiveOrders/ActiveOrders';
 import UserCompany from './pages/Home/UserCompany';
 import CreateOrder from './pages/CreateOrder/CreateOrder'
+import ClosedOrders from './pages/ClosedOrders/ClosedOrders'
 
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/home/company" element={<UserCompany />} />
         <Route path="/orders/active" element={<ActiveOrders />} />
         <Route path="/orders/create" element={<CreateOrder />} />
+        <Route path="/orders/closed" element={<ClosedOrders />} />
       </Routes>
     </div>
   );

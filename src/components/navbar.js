@@ -11,7 +11,7 @@ export default function TopNavbar() {
                 <Nav className="me-auto">
                     <Nav.Link href="/orders/create">New order</Nav.Link>
                     <Nav.Link href="/orders/active">Active orders</Nav.Link>
-                    <Nav.Link href="/orders/finished">Finished orders</Nav.Link>
+                    <Nav.Link href="/orders/closed">Closed orders</Nav.Link>
                     <Nav.Link href="/home/company">My company</Nav.Link>
                 </Nav>
             </Container>
