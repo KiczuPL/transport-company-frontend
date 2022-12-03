@@ -44,6 +44,7 @@ export default function CreateOrder() {
                         <Form.Control
                             autoFocus
                             value={addressFrom}
+                            type="text"
                             onChange={(e) => setAddressFrom(e.target.value)}
                         />
                     </Form.Group>
@@ -52,6 +53,7 @@ export default function CreateOrder() {
                         <Form.Control
                             autoFocus
                             value={addressTo}
+                            type="text"
                             onChange={(e) => setaddressTo(e.target.value)}
                         />
                     </Form.Group>

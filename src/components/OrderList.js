@@ -48,16 +48,27 @@ export default function OrderList(props) {
                     disabled={currentPage === 0}
                 />
 
-                {currentPage > 1 ?
+
+
+                {currentPage - 3 > 0 ?
                     <Pagination.Item
-                        disabled={currentPage === 0}
+                        onClick={() => { setCurrentPage(currentPage - 4); setLoading(true) }}>
+                        {currentPage - 3}
+                    </Pagination.Item> : null}
+                {currentPage - 2 > 0 ?
+                    <Pagination.Item
+                        onClick={() => { setCurrentPage(currentPage - 3); setLoading(true) }}>
+                        {currentPage - 2}
+                    </Pagination.Item> : null}
+
+                {currentPage - 1 > 0 ?
+                    <Pagination.Item
                         onClick={() => { setCurrentPage(currentPage - 2); setLoading(true) }}>
                         {currentPage - 1}
                     </Pagination.Item> : null}
 
                 {currentPage > 0 ?
                     <Pagination.Item
-                        disabled={currentPage === 0}
                         onClick={() => { setCurrentPage(currentPage - 1); setLoading(true) }}>
                         {currentPage}
                     </Pagination.Item> : null}
@@ -75,6 +86,17 @@ export default function OrderList(props) {
                     <Pagination.Item
                         onClick={() => { setCurrentPage(currentPage + 2); setLoading(true) }}>
                         {currentPage + 3}
+                    </Pagination.Item> : null}
+
+                {currentPage < totalPages - 3 ?
+                    <Pagination.Item onClick={() => { setCurrentPage(currentPage + 3); setLoading(true) }}>
+                        {currentPage + 4}
+                    </Pagination.Item> : null}
+
+                {currentPage < totalPages - 4 ?
+                    <Pagination.Item
+                        onClick={() => { setCurrentPage(currentPage + 4); setLoading(true) }}>
+                        {currentPage + 5}
                     </Pagination.Item> : null}
 
                 <Pagination.Last
