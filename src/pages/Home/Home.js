@@ -5,14 +5,10 @@ import ActiveOrders from "../ActiveOrders/ActiveOrders";
 import CreateOrder from "../CreateOrder/CreateOrder";
 import UserCompany from "./UserCompany";
 
-
-
 export default function Home() {
-
-    return (
-        <div>
-            <TopNavbar />
-        </div>
-
-    );
+  return (
+    <div>
+      <TopNavbar />
+    </div>
+  );
 }

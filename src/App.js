@@ -1,21 +1,19 @@
-import { useState, useEffect } from 'react'
-import Login from './pages/Login/Login'
-import Home from './pages/Home/Home'
-import './css/bootstrap.min.css'
-import './css/bootstrap.min.css.map'
-import { Routes, Route } from "react-router-dom";
-import ActiveOrders from './pages/ActiveOrders/ActiveOrders';
-import UserCompany from './pages/Home/UserCompany';
-import CreateOrder from './pages/CreateOrder/CreateOrder'
-import ClosedOrders from './pages/ClosedOrders/ClosedOrders'
-
+import { useState, useEffect } from "react";
+import Login from "./pages/Login/Login";
+import Home from "./pages/Home/Home";
+import "./css/bootstrap.min.css";
+import "./css/bootstrap.min.css.map";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import ActiveOrders from "./pages/ActiveOrders/ActiveOrders";
+import UserCompany from "./pages/Home/UserCompany";
+import CreateOrder from "./pages/CreateOrder/CreateOrder";
+import ClosedOrders from "./pages/ClosedOrders/ClosedOrders";
 
 export default function App() {
-
-  const [token, setToken] = useState(localStorage.getItem('accessToken'))
-  console.log(token)
+  const [token, setToken] = useState(localStorage.getItem("accessToken"));
+  const navigate = useNavigate();
   if (!token) {
-    return (<Login setToken={setToken} />)
+    return <Login setToken={setToken} />;
   }
 
   return (
