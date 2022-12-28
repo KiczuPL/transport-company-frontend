@@ -2,14 +2,14 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import React, { useState } from "react";
 import "./CreateOrder.css";
-import TopNavbar from "../../components/navbar";
+import TopNavbar from "../../components/TopNavbar";
 import orderService from "../../services/order.service";
 
 export default function CreateOrder() {
   const [addressFrom, setAddressFrom] = useState("");
   const [addressTo, setaddressTo] = useState("");
   const [pickUpDate, setpickUpDate] = useState("");
-  const [vehicleType, setvehicleType] = useState("");
+  const [vehicleType, setvehicleType] = useState("DELIVERY_TRUCK");
 
   async function handleSubmit(event) {
     event.preventDefault();

@@ -1,5 +1,5 @@
 import CompanyInfo from "../../components/CompanyInfo";
-import TopNavbar from "../../components/navbar";
+import TopNavbar from "../../components/TopNavbar";
 
 export default function UserCompany() {
   return (

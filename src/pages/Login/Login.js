@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import jwt from "jwt-decode";
+import React, { useContext, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./Login.css";
 import authService from "../../services/auth.service";
-import PropTypes from "prop-types";
 import userService from "../../services/user.service";
+import { UserContext } from "../../context/UserContext";
 
-export default function Login({ setToken }) {
+export default function Login({ setToken, setUser, setIsAdmin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,9 +18,12 @@ export default function Login({ setToken }) {
     event.preventDefault();
     const token = await authService.login(username, password);
     if (token) {
+      //console.log(token);
+      const loggedUser = await userService.getLoggedUserInfo();
+      console.log(loggedUser);
+      setUser(loggedUser);
+      setIsAdmin(loggedUser.roles[0].name === "Admin");
       setToken(token);
-      console.log(token);
-      await userService.getLoggedUserInfo();
     }
   }
 
@@ -53,7 +55,3 @@ export default function Login({ setToken }) {
     </div>
   );
 }
-
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired,
-};

@@ -1,14 +1,13 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import TopNavbar from "../../components/navbar";
-import ActiveOrders from "../ActiveOrders/ActiveOrders";
-import CreateOrder from "../CreateOrder/CreateOrder";
-import UserCompany from "./UserCompany";
+import React, { useContext } from "react";
+import TopNavbar from "../../components/TopNavbar";
+import { UserContext } from "../../context/UserContext";
 
 export default function Home() {
+  const { user } = useContext(UserContext);
   return (
-    <div>
+    <>
       <TopNavbar />
-    </div>
+      <h1>Hello {user.firstName}!</h1>
+    </>
   );
 }

@@ -36,32 +36,22 @@ export default function OrderList(props) {
   return (
     <>
       <ButtonGroup aria-label="Basic example">
-        <Button
-          variant="primary"
-          onClick={
-            !isLoading
-              ? () => {
-                  setLoading(true);
-                  setOrderType(props.orderTypes[0]);
-                }
-              : null
-          }
-        >
-          {capitalizeFirstLetter(props.orderTypes[0])}
-        </Button>
-        <Button
-          variant="primary"
-          onClick={
-            !isLoading
-              ? () => {
-                  setLoading(true);
-                  setOrderType(props.orderTypes[1]);
-                }
-              : null
-          }
-        >
-          {capitalizeFirstLetter(props.orderTypes[1])}
-        </Button>
+        {props.orderTypes.map((type) => (
+          <Button
+            variant={orderType === type ? "primary" : "outline-primary"}
+            active={orderType === type}
+            onClick={
+              !isLoading
+                ? () => {
+                    setLoading(true);
+                    setOrderType(type);
+                  }
+                : null
+            }
+          >
+            {capitalizeFirstLetter(type)}
+          </Button>
+        ))}
       </ButtonGroup>
 
       <Pagination size="sm">
