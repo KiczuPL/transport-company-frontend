@@ -4,8 +4,13 @@ import Pagination from "react-bootstrap/Pagination";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import orderService from "../services/order.service";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { capitalizeFirstLetter } from "../utils/capitalizeFirstLetter";
+import PaginationBlock from "./PaginationBlock";
+import UserCompany from "../pages/Home/UserCompany";
+import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import EditOrderModal from "../pages/EditOrder/EditOrderModal";
 
 export default function OrderList(props) {
   const [orders, setOrders] = useState([]);
@@ -13,12 +18,31 @@ export default function OrderList(props) {
   const [isLoading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [openEditOrderModal, setOpenEditOrderModal] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState();
+  const { isAdmin } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const fetchOrders = async () => {
-    const data = await orderService.getCompanyOrdersByStatus(
-      orderType,
-      currentPage
-    );
+    var response;
+    if (isAdmin) {
+      response = await orderService.getOrders(
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        orderType,
+        currentPage
+      );
+    } else {
+      response = await orderService.getCompanyOrdersByStatus(
+        orderType,
+        currentPage
+      );
+    }
+    const data = response;
     const orders = data.orders;
     console.log(orders);
     setOrders(orders);
@@ -54,120 +78,35 @@ export default function OrderList(props) {
         ))}
       </ButtonGroup>
 
-      <Pagination size="sm">
-        <Pagination.First
-          onClick={() => {
-            setCurrentPage(0);
-            setLoading(true);
-          }}
-          disabled={currentPage === 0}
-        />
-
-        {currentPage - 3 > 0 ? (
-          <Pagination.Item
-            onClick={() => {
-              setCurrentPage(currentPage - 4);
-              setLoading(true);
-            }}
-          >
-            {currentPage - 3}
-          </Pagination.Item>
-        ) : null}
-        {currentPage - 2 > 0 ? (
-          <Pagination.Item
-            onClick={() => {
-              setCurrentPage(currentPage - 3);
-              setLoading(true);
-            }}
-          >
-            {currentPage - 2}
-          </Pagination.Item>
-        ) : null}
-
-        {currentPage - 1 > 0 ? (
-          <Pagination.Item
-            onClick={() => {
-              setCurrentPage(currentPage - 2);
-              setLoading(true);
-            }}
-          >
-            {currentPage - 1}
-          </Pagination.Item>
-        ) : null}
-
-        {currentPage > 0 ? (
-          <Pagination.Item
-            onClick={() => {
-              setCurrentPage(currentPage - 1);
-              setLoading(true);
-            }}
-          >
-            {currentPage}
-          </Pagination.Item>
-        ) : null}
-
-        <Pagination.Item active activeLabel="">
-          {currentPage + 1}
-        </Pagination.Item>
-
-        {currentPage < totalPages - 1 ? (
-          <Pagination.Item
-            onClick={() => {
-              setCurrentPage(currentPage + 1);
-              setLoading(true);
-            }}
-          >
-            {currentPage + 2}
-          </Pagination.Item>
-        ) : null}
-
-        {currentPage < totalPages - 2 ? (
-          <Pagination.Item
-            onClick={() => {
-              setCurrentPage(currentPage + 2);
-              setLoading(true);
-            }}
-          >
-            {currentPage + 3}
-          </Pagination.Item>
-        ) : null}
-
-        {currentPage < totalPages - 3 ? (
-          <Pagination.Item
-            onClick={() => {
-              setCurrentPage(currentPage + 3);
-              setLoading(true);
-            }}
-          >
-            {currentPage + 4}
-          </Pagination.Item>
-        ) : null}
-
-        {currentPage < totalPages - 4 ? (
-          <Pagination.Item
-            onClick={() => {
-              setCurrentPage(currentPage + 4);
-              setLoading(true);
-            }}
-          >
-            {currentPage + 5}
-          </Pagination.Item>
-        ) : null}
-
-        <Pagination.Last
-          disabled={currentPage === totalPages - 1 || totalPages === 0}
-          onClick={() => {
-            setCurrentPage(totalPages - 1);
-            setLoading(true);
-          }}
-        />
-      </Pagination>
+      <PaginationBlock
+        setLoading={setLoading}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+        totalPages={totalPages}
+      />
       <ListGroup>
         {!orders.length ? <h5>Empty</h5> : null}
         {orders.map((s) => (
-          <Order data={s} />
+          <ListGroup.Item>
+            <Order data={s} />
+            {isAdmin && (
+              <Button
+                onClick={() => {
+                  setSelectedOrder(s);
+                  setOpenEditOrderModal(true);
+                }}
+              >
+                Edit
+              </Button>
+            )}
+          </ListGroup.Item>
         ))}
       </ListGroup>
+      <EditOrderModal
+        showModal={openEditOrderModal}
+        closeModal={() => setOpenEditOrderModal(false)}
+        data={selectedOrder ? selectedOrder : {}}
+      />
     </>
   );
 }

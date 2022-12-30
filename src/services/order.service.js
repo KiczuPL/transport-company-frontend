@@ -16,6 +16,39 @@ class OrderService {
         return response.data;
       });
   }
+  async getOrders(
+    companyName,
+    addressFrom,
+    addressTo,
+    pickUpDateFrom,
+    pickUpDateTo,
+    vehicleType,
+    status,
+    pageNumber
+  ) {
+    console.log("POBIERAŃSKO");
+    console.log(authHeader());
+    const payload = {
+      companyName: companyName,
+      addressFrom: addressFrom,
+      addressTo: addressTo,
+      pickUpDateFrom: pickUpDateFrom,
+      pickUpDateTo: pickUpDateTo,
+      vehicleType: vehicleType,
+      status: status,
+      pageNumber: pageNumber,
+    };
+    console.log(payload);
+    return axios
+      .post(API_URL + "order/all", payload, {
+        headers: authHeader(),
+      })
+      .then((response) => {
+        //console.log(response.data)
+        console.log(response);
+        return response.data;
+      });
+  }
   async saveOrder(createOrderFormData) {
     console.log(createOrderFormData);
     return axios
