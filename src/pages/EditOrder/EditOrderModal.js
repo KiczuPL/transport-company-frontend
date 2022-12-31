@@ -24,7 +24,7 @@ export default function EditOrderModal({ data, closeModal, showModal }) {
   }
   function handleSubmit(event) {
     event.preventDefault();
-    //TODO: obsługa update'u, trzeba dodać zabezpieczenie w API
+    //TODO: obsługa update'u, trzeba dodać zabezpieczenie w API ( spakować request że jak stan null to pobierz dane z data)
   }
   return (
     <Modal show={showModal} onHide={closeModal}>
@@ -68,15 +68,16 @@ export default function EditOrderModal({ data, closeModal, showModal }) {
               <option value="TANK_TRUCK">Tank truck</option>
             </Form.Select>
           </Form.Group>
+          <Form.Label>Status</Form.Label>
           {["PLACED", "IN_REALIZATION", "CANCELLED", "FINISHED"].map(
             (statusName) => (
-              <Button
-                variant={statusName === status ? "primary" : "outline-primary"}
-                active={statusName === data.status}
+              <Form.Check
+                type="radio"
+                name="group1"
                 onClick={() => setStatus(statusName)}
-              >
-                {capitalizeFirstLetter(statusName)}
-              </Button>
+                active={statusName === data.status}
+                label={capitalizeFirstLetter(statusName)}
+              />
             )
           )}
         </Modal.Body>

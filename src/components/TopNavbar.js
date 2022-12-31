@@ -20,10 +20,10 @@ export default function TopNavbar() {
         <Nav className="me-auto">
           {isAdmin ? (
             <>
-              <Nav.Link as={Link} to="/home/orders/manage">
+              <Nav.Link as={Link} to="/home/manage/orders">
                 Orders
               </Nav.Link>
-              <Nav.Link as={Link} to="/home/companies/manage">
+              <Nav.Link as={Link} to="/home/manage/companies">
                 Companies
               </Nav.Link>
             </>
