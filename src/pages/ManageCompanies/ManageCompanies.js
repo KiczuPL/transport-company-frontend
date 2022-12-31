@@ -1,4 +1,4 @@
-import CompanyList from "../../components/CompanyList";
+import CompanyList from "./CompanyList";
 import TopNavbar from "../../components/TopNavbar";
 
 export default function ManageCompanies() {

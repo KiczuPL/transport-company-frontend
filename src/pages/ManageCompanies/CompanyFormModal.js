@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import companyService from "../services/company.service";
+import companyService from "../../services/company.service";
 
 export default function CompanyFormModal({
   show,
@@ -86,12 +86,7 @@ export default function CompanyFormModal({
           <Button variant="danger" onClick={handleClose}>
             Cancel
           </Button>
-          <Button
-            variant="success"
-            type="submit"
-            disabled={!validateForm()}
-            onClick={handleConfirm}
-          >
+          <Button variant="success" type="submit" disabled={!validateForm()}>
             Save
           </Button>
         </Modal.Footer>

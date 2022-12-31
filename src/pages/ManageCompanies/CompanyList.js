@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button, ListGroup, ListGroupItem } from "react-bootstrap";
-import companyService from "../services/company.service";
-import Company from "./Company";
+import companyService from "../../services/company.service";
+import Company from "../../components/Company";
 import CompanyFormModal from "./CompanyFormModal";
-import ConfirmModal from "./ConfirmModal";
-import PaginationBlock from "./PaginationBlock";
+import ConfirmModal from "../../components/ConfirmModal";
+import PaginationBlock from "../../components/PaginationBlock";
 
 export default function CompanyList() {
   const [companies, setCompanies] = useState([]);
