@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { Button, ListGroup, ListGroupItem } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Form,
+  FormGroup,
+  ListGroup,
+  ListGroupItem,
+  Row,
+} from "react-bootstrap";
 import companyService from "../../services/company.service";
 import Company from "../../components/Company";
 import CompanyFormModal from "./CompanyFormModal";
@@ -17,6 +25,7 @@ export default function CompanyList() {
   const [selectedCompany, setSelectedCompany] = useState({});
   const [showDeleteCompanyModal, setShowDeleteCompanyModal] = useState(false);
   const [showEditCompanyModal, setShowEditCompanyModal] = useState(false);
+  const [showCreateCompanyModal, setShowCreateCompanyModal] = useState(false);
 
   const handleDelete = async () => {
     await companyService.deleteCompany(selectedCompany.id);
@@ -45,65 +54,130 @@ export default function CompanyList() {
   }, [isLoading]);
   return (
     <>
-      <PaginationBlock
-        setLoading={setLoading}
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-        totalPages={totalPages}
-      />
-      <ListGroup>
-        {!companies.length ? <h5>Empty</h5> : null}
-        {companies.map((company) => (
-          <>
-            <ListGroup.Item>
+      <Container>
+        <ListGroup>
+          <ListGroup.Item>
+            <Container>
+              <Form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setLoading(true);
+                }}
+              >
+                <Row xs={2}>
+                  <FormGroup>
+                    <Form.Label>Company name:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      onChange={(e) => setCompanyName(e.target.value)}
+                    />
+                  </FormGroup>
+                </Row>
+                <Row xs={2}>
+                  <FormGroup>
+                    <Form.Label>Company address:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      onChange={(e) => setCompanyAddress(e.target.value)}
+                    />
+                  </FormGroup>
+                </Row>
+                <Row xs={2}>
+                  <FormGroup>
+                    <Form.Label>Company tax id:</Form.Label>
+                    <Form.Control
+                      type="text"
+                      onChange={(e) => setCompanyTaxId(e.target.value)}
+                    />
+                  </FormGroup>
+                </Row>
+                <Row xs={2}>
+                  <Button type="submit">Filter</Button>{" "}
+                </Row>
+              </Form>{" "}
+            </Container>
+            <PaginationBlock
+              setLoading={setLoading}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+              totalPages={totalPages}
+            />{" "}
+            <Button
+              variant="success"
+              onClick={() => {
+                setShowCreateCompanyModal(true);
+              }}
+            >
+              Create new
+            </Button>{" "}
+          </ListGroup.Item>
+        </ListGroup>
+
+        <ListGroup>
+          {!companies.length ? <h5>Empty</h5> : null}
+          {companies.map((company) => (
+            <>
               <ListGroup.Item>
-                <Company data={company} />
-                <Button
-                  variant="danger"
-                  onClick={() => {
-                    setSelectedCompany(company);
-                    setShowDeleteCompanyModal(true);
-                  }}
-                >
-                  Delete
-                </Button>{" "}
-                <Button
-                  variant="primary"
-                  onClick={() => {
-                    setSelectedCompany(company);
-                    setShowEditCompanyModal(true);
-                  }}
-                >
-                  Edit
-                </Button>
+                <ListGroup.Item>
+                  <Company data={company} />
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      setSelectedCompany(company);
+                      setShowDeleteCompanyModal(true);
+                    }}
+                  >
+                    Delete
+                  </Button>{" "}
+                  <Button
+                    variant="primary"
+                    onClick={() => {
+                      setSelectedCompany(company);
+                      setShowEditCompanyModal(true);
+                    }}
+                  >
+                    Edit
+                  </Button>
+                </ListGroup.Item>
               </ListGroup.Item>
-            </ListGroup.Item>
-          </>
-        ))}
-      </ListGroup>
-      <ConfirmModal
-        dangerousAction={true}
-        show={showDeleteCompanyModal}
-        handleClose={() => setShowDeleteCompanyModal(false)}
-        handleConfirm={handleDelete}
-        header="Delete company"
-        body={
-          "Are you sure you want to delete company " +
-          selectedCompany.name +
-          " and all orders and users associated with it?"
-        }
-      />
-      <CompanyFormModal
-        show={showEditCompanyModal}
-        handleClose={() => setShowEditCompanyModal(false)}
-        handleConfirm={() => {
-          setShowEditCompanyModal(false);
-          setLoading(true);
-        }}
-        mode="edit"
-        header="Edit company data"
-        data={selectedCompany}
-      />
+            </>
+          ))}
+        </ListGroup>
+        <ConfirmModal
+          dangerousAction={true}
+          show={showDeleteCompanyModal}
+          handleClose={() => setShowDeleteCompanyModal(false)}
+          handleConfirm={handleDelete}
+          header="Delete company"
+          body={
+            "Are you sure you want to delete company " +
+            selectedCompany.name +
+            " and all orders and users associated with it?"
+          }
+        />
+        <CompanyFormModal
+          show={showEditCompanyModal}
+          handleClose={() => setShowEditCompanyModal(false)}
+          handleConfirm={() => {
+            setShowEditCompanyModal(false);
+            setLoading(true);
+          }}
+          mode="edit"
+          header="Edit company data"
+          data={selectedCompany}
+        />
+        <CompanyFormModal
+          show={showCreateCompanyModal}
+          handleClose={() => setShowCreateCompanyModal(false)}
+          handleConfirm={() => {
+            setShowCreateCompanyModal(false);
+            setLoading(true);
+          }}
+          mode="create"
+          header="Create new company"
+          data={selectedCompany}
+        />
+      </Container>
     </>
   );
 }

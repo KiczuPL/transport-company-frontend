@@ -6,7 +6,7 @@ export default function Company({ data }) {
       <h5>{data.name}</h5>
       <p>Id: {data.id}</p>
       <p>Address: {data.address}</p>
-      <p>Tax id {data.taxIdNumber}</p>
+      <p>Tax id: {data.taxIdNumber}</p>
     </>
   );
 }
