@@ -4,11 +4,31 @@ import authHeader from "./auth-header";
 const API_URL = "http://localhost:8080/api/";
 
 class OrderService {
-  async getCompanyOrdersByStatus(status, pageNumber) {
+  async getCompanyOrdersByStatus(
+    addressFrom,
+    addressTo,
+    pickUpDateFrom,
+    pickUpDateTo,
+    status,
+    pageNumber
+  ) {
     console.log("POBIERAŃSKO");
     return axios
       .get(
-        API_URL + "order" + "?" + "status=" + status + "&page=" + pageNumber,
+        API_URL +
+          "order" +
+          "?status=" +
+          status +
+          "&addressFrom=" +
+          addressFrom +
+          "&addressTo=" +
+          addressTo +
+          "&pickUpDateFrom=" +
+          pickUpDateFrom +
+          "&pickUpDateTo=" +
+          pickUpDateTo +
+          "&page=" +
+          pageNumber,
         { headers: authHeader() }
       )
       .then((response) => {
@@ -22,7 +42,6 @@ class OrderService {
     addressTo,
     pickUpDateFrom,
     pickUpDateTo,
-    vehicleType,
     status,
     pageNumber
   ) {
@@ -34,7 +53,6 @@ class OrderService {
       addressTo: addressTo,
       pickUpDateFrom: pickUpDateFrom,
       pickUpDateTo: pickUpDateTo,
-      vehicleType: vehicleType,
       status: status,
       pageNumber: pageNumber,
     };

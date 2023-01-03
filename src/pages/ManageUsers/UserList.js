@@ -77,7 +77,7 @@ export default function UserList() {
                 }}
               >
                 <Row xs={2}>
-                  <Col xs={3}>
+                  <Col xs={4}>
                     <FormGroup>
                       <Form.Label>Username:</Form.Label>
                       <Form.Control
@@ -86,7 +86,7 @@ export default function UserList() {
                       />
                     </FormGroup>
                   </Col>
-                  <Col xs={3}>
+                  <Col xs={4}>
                     <FormGroup>
                       <Form.Label>Email:</Form.Label>
                       <Form.Control
@@ -97,7 +97,7 @@ export default function UserList() {
                   </Col>
                 </Row>
                 <Row xs={2}>
-                  <Col xs={3}>
+                  <Col xs={4}>
                     <FormGroup>
                       <Form.Label>First name:</Form.Label>
                       <Form.Control
@@ -106,7 +106,7 @@ export default function UserList() {
                       />
                     </FormGroup>
                   </Col>
-                  <Col xs={3}>
+                  <Col xs={4}>
                     <FormGroup>
                       <Form.Label>Last name:</Form.Label>
                       <Form.Control
@@ -118,7 +118,7 @@ export default function UserList() {
                 </Row>
                 <Row xs={2}></Row>
                 <Row xs={2}>
-                  <Col xs={3}>
+                  <Col xs={4}>
                     {" "}
                     <FormGroup>
                       <Form.Label>Company name:</Form.Label>
@@ -128,6 +128,9 @@ export default function UserList() {
                       />
                     </FormGroup>
                   </Col>
+                </Row>{" "}
+                <Row xs={2}>
+                  <Form.Label />
                 </Row>
                 <Row xs={2}>
                   <Col ys={1}>
@@ -136,6 +139,9 @@ export default function UserList() {
                   </Col>
                 </Row>
               </Form>{" "}
+              <Row xs={2}>
+                <Form.Label />
+              </Row>
               <PaginationBlock
                 setLoading={setLoading}
                 setCurrentPage={setCurrentPage}

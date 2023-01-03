@@ -11,12 +11,18 @@ import UserCompany from "../pages/Home/UserCompany";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import EditOrderModal from "../pages/EditOrder/EditOrderModal";
-import { Container } from "react-bootstrap";
+import { Col, Container, Form, FormGroup, Row } from "react-bootstrap";
 import ConfirmModal from "./ConfirmModal";
 
 export default function OrderList(props) {
   const [orders, setOrders] = useState([]);
   const [orderType, setOrderType] = useState(props.orderTypes[0]);
+  const [companyName, setCompanyName] = useState("");
+  const [addressFrom, setAddressFrom] = useState("");
+  const [addressTo, setAddressTo] = useState("");
+  const [pickUpDateFrom, setPickUpDateFrom] = useState("");
+  const [pickUpDateTo, setPickUpDateTo] = useState("");
+
   const [isLoading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -29,17 +35,20 @@ export default function OrderList(props) {
     var response;
     if (isAdmin) {
       response = await orderService.getOrders(
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
+        companyName,
+        addressFrom,
+        addressTo,
+        pickUpDateFrom,
+        pickUpDateTo,
         orderType,
         currentPage
       );
     } else {
       response = await orderService.getCompanyOrdersByStatus(
+        addressFrom,
+        addressTo,
+        pickUpDateFrom,
+        pickUpDateTo,
         orderType,
         currentPage
       );
@@ -70,31 +79,108 @@ export default function OrderList(props) {
       <Container>
         <ListGroup>
           <ListGroup.Item>
-            <ButtonGroup aria-label="Basic example">
-              {props.orderTypes.map((type) => (
-                <Button
-                  variant={orderType === type ? "primary" : "outline-primary"}
-                  active={orderType === type}
-                  onClick={
-                    !isLoading
-                      ? () => {
-                          setLoading(true);
-                          setOrderType(type);
-                        }
-                      : null
-                  }
-                >
-                  {capitalizeFirstLetter(type)}
-                </Button>
-              ))}
-            </ButtonGroup>
-
-            <PaginationBlock
-              setLoading={setLoading}
-              setCurrentPage={setCurrentPage}
-              currentPage={currentPage}
-              totalPages={totalPages}
-            />
+            <Container>
+              <Form onSubmit={() => setLoading(true)}>
+                <Row xs={2}>
+                  <Col xs={4}>
+                    <FormGroup>
+                      <Form.Label>Address from:</Form.Label>
+                      <Form.Control
+                        type="text"
+                        onChange={(e) => setAddressFrom(e.target.value)}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col xs={4}>
+                    <FormGroup>
+                      <Form.Label>Address from:</Form.Label>
+                      <Form.Control
+                        type="text"
+                        onChange={(e) => setAddressTo(e.target.value)}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Row xs={2}>
+                  <Col xs={4}>
+                    <FormGroup>
+                      <Form.Label>Pick up date from:</Form.Label>
+                      <Form.Control
+                        type="date"
+                        onChange={(e) => setPickUpDateFrom(e.target.value)}
+                      />
+                    </FormGroup>
+                  </Col>
+                  <Col xs={4}>
+                    <FormGroup>
+                      <Form.Label>Pick up date to:</Form.Label>
+                      <Form.Control
+                        type="date"
+                        onChange={(e) => setPickUpDateTo(e.target.value)}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+                <Form.Label>Order status:</Form.Label>
+                <Row xs={2}>
+                  <Col xs={8}>
+                    {" "}
+                    <ButtonGroup aria-label="Basic example">
+                      {props.orderTypes.map((type) => (
+                        <Button
+                          variant={
+                            orderType === type ? "primary" : "outline-primary"
+                          }
+                          active={orderType === type}
+                          onClick={
+                            !isLoading
+                              ? () => {
+                                  setLoading(true);
+                                  setOrderType(type);
+                                }
+                              : null
+                          }
+                        >
+                          {capitalizeFirstLetter(type)}
+                        </Button>
+                      ))}
+                    </ButtonGroup>
+                  </Col>
+                </Row>
+              </Form>
+              <Row xs={2}>
+                <Form.Label />
+              </Row>
+              {isAdmin && (
+                <Row xs={2}>
+                  <Col xs={4}>
+                    <FormGroup>
+                      <Form.Label>Company:</Form.Label>
+                      <Form.Control
+                        type="text"
+                        onChange={(e) => setCompanyName(e.target.value)}
+                      />
+                    </FormGroup>
+                  </Col>
+                </Row>
+              )}
+              <Row xs={2}>
+                <Col xs={1}>
+                  <Button onClick={() => setLoading(true)}>Filter</Button>{" "}
+                </Col>
+              </Row>
+              <Row xs={2}>
+                <Col xs={4}>
+                  <Form.Label />
+                  <PaginationBlock
+                    setLoading={setLoading}
+                    setCurrentPage={setCurrentPage}
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                  />
+                </Col>
+              </Row>
+            </Container>
           </ListGroup.Item>
         </ListGroup>
         <ListGroup>

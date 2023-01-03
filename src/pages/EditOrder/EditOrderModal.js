@@ -10,8 +10,8 @@ export default function EditOrderModal({ data, closeModal, showModal }) {
   const [status, setStatus] = useState(data.status);
 
   function validateForm() {
-    console.log(data);
-    console.log(pickUpDate);
+    //console.log(data);
+    //console.log(pickUpDate);
     const d1 = new Date(pickUpDate);
     const d2 = new Date();
     return (

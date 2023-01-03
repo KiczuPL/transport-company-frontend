@@ -91,9 +91,14 @@ export default function CompanyList() {
                     />
                   </FormGroup>
                 </Row>
-
+                <Row xs={2}>
+                  <Form.Label />
+                </Row>
                 <Row md={2}>
                   <Button type="submit">Filter</Button>
+                </Row>{" "}
+                <Row xs={2}>
+                  <Form.Label />
                 </Row>
               </Form>{" "}
             </Container>
