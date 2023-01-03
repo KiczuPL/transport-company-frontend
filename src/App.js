@@ -11,6 +11,7 @@ import ClosedOrders from "./pages/ClosedOrders/ClosedOrders";
 import { UserContext } from "./context/UserContext";
 import ManageOrders from "./pages/ManageOrders/ManageOrders";
 import ManageCompanies from "./pages/ManageCompanies/ManageCompanies";
+import ManageUsers from "./pages/ManageUsers/ManageUsers";
 
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem("accessToken"));
@@ -40,6 +41,7 @@ export default function App() {
         <Route exact path="/home/orders/create" element={<CreateOrder />} />
         <Route exact path="/home/orders/closed" element={<ClosedOrders />} />
         <Route exact path="/home/manage/orders" element={<ManageOrders />} />
+        <Route exact path="/home/manage/users" element={<ManageUsers />} />
         <Route
           exact
           path="/home/manage/companies"

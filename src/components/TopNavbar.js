@@ -26,6 +26,9 @@ export default function TopNavbar() {
               <Nav.Link as={Link} to="/home/manage/companies">
                 Companies
               </Nav.Link>
+              <Nav.Link as={Link} to="/home/manage/users">
+                Users
+              </Nav.Link>
             </>
           ) : (
             <>
