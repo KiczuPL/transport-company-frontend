@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Container, ListGroup } from "react-bootstrap";
 import TopNavbar from "../../components/TopNavbar";
 import { UserContext } from "../../context/UserContext";
 
@@ -7,7 +8,9 @@ export default function Home() {
   return (
     <>
       <TopNavbar />
-      <h1>Hello {user.firstName}!</h1>
+      <Container>
+        <h1>Hello {user.firstName}!</h1>
+      </Container>
     </>
   );
 }

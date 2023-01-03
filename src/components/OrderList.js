@@ -152,17 +152,23 @@ export default function OrderList(props) {
                 <Form.Label />
               </Row>
               {isAdmin && (
-                <Row xs={2}>
-                  <Col xs={4}>
-                    <FormGroup>
-                      <Form.Label>Company:</Form.Label>
-                      <Form.Control
-                        type="text"
-                        onChange={(e) => setCompanyName(e.target.value)}
-                      />
-                    </FormGroup>
-                  </Col>
-                </Row>
+                <>
+                  {" "}
+                  <Row xs={2}>
+                    <Col xs={4}>
+                      <FormGroup>
+                        <Form.Label>Company:</Form.Label>
+                        <Form.Control
+                          type="text"
+                          onChange={(e) => setCompanyName(e.target.value)}
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row xs={2}>
+                    <Form.Label />
+                  </Row>
+                </>
               )}
               <Row xs={2}>
                 <Col xs={1}>
@@ -170,8 +176,10 @@ export default function OrderList(props) {
                 </Col>
               </Row>
               <Row xs={2}>
+                <Form.Label />
+              </Row>
+              <Row xs={2}>
                 <Col xs={4}>
-                  <Form.Label />
                   <PaginationBlock
                     setLoading={setLoading}
                     setCurrentPage={setCurrentPage}
