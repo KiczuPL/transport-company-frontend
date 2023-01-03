@@ -50,9 +50,20 @@ class OrderService {
       });
   }
   async saveOrder(createOrderFormData) {
-    console.log(createOrderFormData);
+    //console.log(createOrderFormData);
     return axios
       .post(API_URL + "order/save", createOrderFormData, {
+        headers: authHeader(),
+      })
+      .then((response) => {
+        //console.log(response.data)
+        return response.data;
+      });
+  }
+
+  async deleteOrder(id) {
+    return axios
+      .delete(API_URL + "order/" + id, {
         headers: authHeader(),
       })
       .then((response) => {
