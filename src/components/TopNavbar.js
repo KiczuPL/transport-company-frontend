@@ -8,7 +8,7 @@ import authService from "../services/auth.service";
 import userService from "../services/user.service";
 
 export default function TopNavbar() {
-  const { setToken, setUser, setAuthenticated, isAdmin } =
+  const { setToken, setUser, setIsAuthenticated, isAdmin } =
     useContext(UserContext);
 
   return (
@@ -50,7 +50,8 @@ export default function TopNavbar() {
             <Button
               onClick={() => {
                 authService.logout();
-                setToken(null);
+                setToken("");
+                setIsAuthenticated(false);
               }}
             >
               Logout

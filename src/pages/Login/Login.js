@@ -6,7 +6,12 @@ import authService from "../../services/auth.service";
 import userService from "../../services/user.service";
 import { UserContext } from "../../context/UserContext";
 
-export default function Login({ setToken, setUser, setIsAdmin }) {
+export default function Login({
+  setToken,
+  setUser,
+  setIsAdmin,
+  setIsAuthenticated,
+}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -24,11 +29,9 @@ export default function Login({ setToken, setUser, setIsAdmin }) {
       setUser(loggedUser);
       setIsAdmin(loggedUser.roles[0].name === "Admin");
       setToken(token);
+      setIsAuthenticated(true);
     }
   }
-  useEffect(() => {
-    setIsAdmin(false);
-  }, []);
 
   return (
     <div className="Login">

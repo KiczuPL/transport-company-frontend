@@ -172,7 +172,7 @@ export default function OrderList(props) {
               )}
               <Row xs={2}>
                 <Col xs={1}>
-                  <Button onClick={() => setLoading(true)}>Filter</Button>{" "}
+                  <Button onClick={() => setLoading(true)}>Filter</Button>
                 </Col>
               </Row>
               <Row xs={2}>
