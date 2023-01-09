@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, ButtonGroup, Form, Modal } from "react-bootstrap";
+import orderService from "../../services/order.service";
 import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
 
 export default function EditOrderModal({ data, closeModal, showModal }) {
@@ -15,23 +16,33 @@ export default function EditOrderModal({ data, closeModal, showModal }) {
     const d1 = new Date(pickUpDate);
     const d2 = new Date();
     return (
-      addressFrom != null &&
-      addressTo != null &&
-      addressFrom.length > 0 &&
-      addressTo.length > 0 &&
+      (!addressFrom || addressFrom.length > 0) &&
+      (!addressTo || addressTo.length > 0) &&
       d1 > d2
     );
   }
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    //TODO: obsługa update'u, trzeba dodać zabezpieczenie w API ( spakować request że jak stan null to pobierz dane z data)
+    const order = {
+      id: data.id,
+      company: data.company,
+      addressFrom: addressFrom ? addressFrom : data.addressFrom,
+      addressTo: addressTo ? addressTo : data.addressTo,
+      pickUpDate: pickUpDate ? pickUpDate : data.pickUpDate,
+      vehicleType: vehicleType ? vehicleType : data.vehicleType,
+      creationDateTime: data.creationDateTime,
+      assignedVehicle: data.assignedVehicle,
+      status: status ? status : data.status,
+    };
+    await orderService.updateOrder(order);
+    closeModal();
   }
   return (
     <Modal show={showModal} onHide={closeModal}>
       <Modal.Header>
         <h2>Edit Order</h2>
       </Modal.Header>
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <Modal.Body>
           <Form.Group size="lg" controlId=" addressFrom">
             <Form.Label>From</Form.Label>
@@ -68,18 +79,25 @@ export default function EditOrderModal({ data, closeModal, showModal }) {
               <option value="TANK_TRUCK">Tank truck</option>
             </Form.Select>
           </Form.Group>
-          <Form.Label>Status</Form.Label>
-          {["PLACED", "IN_REALIZATION", "CANCELLED", "FINISHED"].map(
-            (statusName) => (
-              <Form.Check
-                type="radio"
-                name="group1"
-                onClick={() => setStatus(statusName)}
-                active={statusName === data.status}
-                label={capitalizeFirstLetter(statusName)}
-              />
-            )
-          )}
+          <Form.Group>
+            <Form.Label>Status</Form.Label>
+            <Form.Group />
+            <ButtonGroup aria-label="Basic example">
+              {["PLACED", "IN_REALIZATION", "CANCELLED", "FINISHED"].map(
+                (type) => (
+                  <Button
+                    variant={type === status ? "primary" : "outline-primary"}
+                    active={type === status}
+                    onClick={() => {
+                      setStatus(type);
+                    }}
+                  >
+                    {capitalizeFirstLetter(type)}
+                  </Button>
+                )
+              )}
+            </ButtonGroup>
+          </Form.Group>
         </Modal.Body>
         <Modal.Footer>
           <Button block="true" variant="danger" size="lg" onClick={closeModal}>
@@ -91,6 +109,7 @@ export default function EditOrderModal({ data, closeModal, showModal }) {
             type="submit"
             variant="success"
             disabled={!validateForm()}
+            onClick={handleSubmit}
           >
             Save
           </Button>

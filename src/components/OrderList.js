@@ -227,7 +227,10 @@ export default function OrderList(props) {
 
       <EditOrderModal
         showModal={openEditOrderModal}
-        closeModal={() => setOpenEditOrderModal(false)}
+        closeModal={() => {
+          setOpenEditOrderModal(false);
+          setLoading(true);
+        }}
         data={selectedOrder ? selectedOrder : {}}
       />
       <ConfirmModal

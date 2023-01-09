@@ -79,6 +79,18 @@ class OrderService {
       });
   }
 
+  async updateOrder(order) {
+    console.log(order);
+    return axios
+      .put(API_URL + "order/update", order, {
+        headers: authHeader(),
+      })
+      .then((response) => {
+        //console.log(response.data)
+        return response.data;
+      });
+  }
+
   async deleteOrder(id) {
     return axios
       .delete(API_URL + "order/" + id, {

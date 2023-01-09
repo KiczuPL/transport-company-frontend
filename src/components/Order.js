@@ -1,4 +1,5 @@
 import ListGroup from "react-bootstrap/ListGroup";
+import { capitalizeFirstLetter } from "../utils/capitalizeFirstLetter";
 
 export default function Order(props) {
   return (
@@ -9,6 +10,7 @@ export default function Order(props) {
       <p>Address to: {props.data.addressTo}</p>
       <p>Pick up date: {props.data.pickUpDate}</p>
       <p>Vehicle type: {props.data.vehicleType}</p>
+      <p>Status: {capitalizeFirstLetter(props.data.status)}</p>
     </>
   );
 }
