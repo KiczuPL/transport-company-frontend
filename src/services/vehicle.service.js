@@ -25,9 +25,28 @@ class VehicleService {
         return response.data;
       });
   }
+  saveVehicle(vehicle) {
+    return axios
+      .post(API_URL + "vehicle/save", vehicle, {
+        headers: authHeader(),
+      })
+      .then((response) => {
+        return response.data;
+      });
+  }
+
+  updateVehicle(vehicle) {
+    return axios
+      .put(API_URL + "vehicle", vehicle, {
+        headers: authHeader(),
+      })
+      .then((response) => {
+        return response.data;
+      });
+  }
   deleteVehicle(id) {
     return axios
-      .delete(API_URL + "vehicle/" + "id", {
+      .delete(API_URL + "vehicle/" + id, {
         headers: authHeader(),
       })
       .then((response) => {

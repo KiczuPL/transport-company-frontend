@@ -43,8 +43,6 @@ export default function CompanyFormModal({
       handleEdit();
     }
     handleConfirm();
-
-    //TODO: obsługa update'u, trzeba dodać zabezpieczenie w API ( spakować request że jak stan null to pobierz dane z data)
   }
 
   return (

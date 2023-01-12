@@ -54,7 +54,7 @@ export default function App() {
 
   if (!isAuthenticated) {
     console.log("nie ma autentykacji");
-    if (token) return <>DUPA</>;
+    if (token) return <>SOMETHING WENT WRONG</>;
     console.log("NI MA TOKENA");
     return (
       <Login

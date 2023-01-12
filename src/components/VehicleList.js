@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import {
   Button,
   ButtonGroup,
@@ -10,6 +10,7 @@ import {
   Row,
 } from "react-bootstrap";
 import { UserContext } from "../context/UserContext";
+import VehicleFormModal from "../pages/ManageVehicles/VehicleFormModal";
 import vehicleService from "../services/vehicle.service";
 import { capitalizeFirstLetter } from "../utils/capitalizeFirstLetter";
 import ConfirmModal from "./ConfirmModal";
@@ -19,18 +20,19 @@ import Vehicle from "./Vehicle";
 export default function VehicleList() {
   const [registrationNumber, setRegistrationNumber] = useState("");
   const [vehicleIdentifier, setVehicleIdentifier] = useState("");
-  const [vehicleType, setVehicleType] = useState("SEMI_TRUCK");
+  const [vehicleType, setVehicleType] = useState("");
 
   const [vehicles, setVehicles] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [openCreateVehicleModal, setOpenCreateVehicleModal] = useState(false);
   const [openEditVehicleModal, setOpenEditVehicleModal] = useState(false);
   const [openDeleteVehicleModal, setOpenDeleteVehicleModal] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState({});
   const { isAdmin } = useContext(UserContext);
 
-  const fetchOrders = async () => {
+  const fetchVehicles = async () => {
     const data = await vehicleService.getVehicles(
       registrationNumber,
       vehicleIdentifier,
@@ -51,7 +53,7 @@ export default function VehicleList() {
 
   useEffect(() => {
     if (isLoading) {
-      fetchOrders().then(() => {
+      fetchVehicles().then(() => {
         setLoading(false);
       });
     }
@@ -139,6 +141,14 @@ export default function VehicleList() {
                   />
                 </Col>
               </Row>
+              <Button
+                variant="success"
+                onClick={() => {
+                  setOpenCreateVehicleModal(true);
+                }}
+              >
+                Create new
+              </Button>{" "}
             </Container>
           </ListGroup.Item>
         </ListGroup>
@@ -161,7 +171,7 @@ export default function VehicleList() {
                 <Button
                   onClick={() => {
                     setSelectedVehicle(s);
-                    //setOpenEditOrderModal(true);
+                    setOpenEditVehicleModal(true);
                   }}
                 >
                   Edit
@@ -181,6 +191,34 @@ export default function VehicleList() {
         handleClose={() => setOpenDeleteVehicleModal(false)}
         handleConfirm={handleDelete}
         dangerousAction={true}
+      />
+      <VehicleFormModal
+        show={openEditVehicleModal}
+        mode="edit"
+        header="Edit vehicle"
+        handleClose={() => {
+          setLoading(true);
+          setOpenEditVehicleModal(false);
+        }}
+        handleConfirm={() => {
+          setLoading(true);
+          setOpenEditVehicleModal(false);
+        }}
+        data={selectedVehicle}
+      />
+      <VehicleFormModal
+        show={openCreateVehicleModal}
+        mode="create"
+        header="Create vehicle"
+        handleClose={() => {
+          setLoading(true);
+          setOpenCreateVehicleModal(false);
+        }}
+        handleConfirm={() => {
+          setLoading(true);
+          setOpenCreateVehicleModal(false);
+        }}
+        data={{}}
       />
     </>
   );
