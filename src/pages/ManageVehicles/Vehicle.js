@@ -1,4 +1,4 @@
-import { capitalizeFirstLetter } from "../utils/capitalizeFirstLetter";
+import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
 
 export default function Vehicle({ data }) {
   return (

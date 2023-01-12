@@ -1,5 +1,5 @@
 import CompanyInfo from "../../components/CompanyInfo";
-import TopNavbar from "../../components/TopNavbar";
+import TopNavbar from "../ManageVehicles/TopNavbar";
 
 export default function UserCompany() {
   return (

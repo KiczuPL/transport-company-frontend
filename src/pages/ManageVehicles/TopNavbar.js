@@ -3,9 +3,9 @@ import { Button, Container } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link, redirect, useNavigate } from "react-router-dom";
-import { UserContext } from "../context/UserContext";
-import authService from "../services/auth.service";
-import userService from "../services/user.service";
+import { UserContext } from "../../context/UserContext";
+import authService from "../../services/auth.service";
+import userService from "../../services/user.service";
 
 export default function TopNavbar() {
   const { setToken, setUser, setIsAuthenticated, isAdmin } =

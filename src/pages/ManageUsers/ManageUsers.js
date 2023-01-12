@@ -1,4 +1,4 @@
-import TopNavbar from "../../components/TopNavbar";
+import TopNavbar from "../ManageVehicles/TopNavbar";
 import UserList from "./UserList";
 
 export default function ManageUsers() {

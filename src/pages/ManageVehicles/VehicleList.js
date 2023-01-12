@@ -9,12 +9,12 @@ import {
   ListGroup,
   Row,
 } from "react-bootstrap";
-import { UserContext } from "../context/UserContext";
-import VehicleFormModal from "../pages/ManageVehicles/VehicleFormModal";
-import vehicleService from "../services/vehicle.service";
-import { capitalizeFirstLetter } from "../utils/capitalizeFirstLetter";
-import ConfirmModal from "./ConfirmModal";
-import PaginationBlock from "./PaginationBlock";
+import { UserContext } from "../../context/UserContext";
+import VehicleFormModal from "./VehicleFormModal";
+import vehicleService from "../../services/vehicle.service";
+import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
+import ConfirmModal from "../../components/ConfirmModal";
+import PaginationBlock from "../../components/PaginationBlock";
 import Vehicle from "./Vehicle";
 
 export default function VehicleList() {

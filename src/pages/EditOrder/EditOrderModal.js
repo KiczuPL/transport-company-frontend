@@ -4,11 +4,11 @@ import orderService from "../../services/order.service";
 import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
 
 export default function EditOrderModal({ data, closeModal, showModal }) {
-  const [addressFrom, setAddressFrom] = useState(data.addressFrom);
-  const [addressTo, setAddressTo] = useState(data.addressTo);
-  const [pickUpDate, setPickUpDate] = useState(data.pickUpDate);
-  const [vehicleType, setVehicleType] = useState(data.vehicleType);
-  const [status, setStatus] = useState(data.status);
+  const [addressFrom, setAddressFrom] = useState("");
+  const [addressTo, setAddressTo] = useState("");
+  const [pickUpDate, setPickUpDate] = useState("");
+  const [vehicleType, setVehicleType] = useState("");
+  const [status, setStatus] = useState("");
 
   function validateForm() {
     //console.log(data);
@@ -16,9 +16,11 @@ export default function EditOrderModal({ data, closeModal, showModal }) {
     const d1 = new Date(pickUpDate);
     const d2 = new Date();
     return (
-      (!addressFrom || addressFrom.length > 0) &&
-      (!addressTo || addressTo.length > 0) &&
-      d1 > d2
+      (addressFrom && addressFrom !== data.addressFrom) ||
+      (addressTo && addressTo !== data.addressTo) ||
+      (status && status !== data.status) ||
+      (vehicleType && vehicleType !== data.vehicleType) ||
+      (d1 && d1 > d2)
     );
   }
   async function handleSubmit(event) {
