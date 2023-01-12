@@ -10,7 +10,7 @@ import PaginationBlock from "./PaginationBlock";
 import UserCompany from "../pages/Home/UserCompany";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import EditOrderModal from "../pages/EditOrder/EditOrderModal";
+import EditOrderModal from "../pages/ManageOrders/EditOrderModal";
 import { Col, Container, Form, FormGroup, Row } from "react-bootstrap";
 import ConfirmModal from "./ConfirmModal";
 

@@ -21,7 +21,13 @@ export default function UserFormModal({
   const [companies, setCompanies] = useState([]);
   const [isLoading, setLoading] = useState(true);
   function validateForm() {
-    return true;
+    return (
+      (username && username !== data.username) ||
+      (firstName && firstName !== data.firstName) ||
+      (lastName && lastName !== data.lastName) ||
+      (email && email !== data.email) ||
+      (searchedCompanyName && searchedCompanyName !== data.company.name)
+    );
   }
   const handleEdit = async () => {
     const user = {
@@ -71,6 +77,9 @@ export default function UserFormModal({
       });
     }
   }, [isLoading]);
+  useEffect(() => {
+    if (data.company) setSearchedCompanyName(data.company.name);
+  }, [show]);
 
   return (
     <Modal show={show}>

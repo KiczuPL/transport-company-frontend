@@ -15,7 +15,11 @@ export default function VehicleFormModal({
   const [type, setType] = useState("");
 
   function validateForm() {
-    return true;
+    return (
+      (vehicleIdentifier && vehicleIdentifier !== data.vehicleIdentifier) ||
+      (registrationNumber && registrationNumber !== data.registrationNumber) ||
+      (type && type !== data.type)
+    );
   }
   const handleEdit = async () => {
     const vehicle = {
