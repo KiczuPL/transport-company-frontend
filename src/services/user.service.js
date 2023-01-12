@@ -18,22 +18,6 @@ class UserService {
   }
 
   getUsers(username, firstName, lastName, email, companyName, page) {
-    console.log(
-      API_URL +
-        "user?" +
-        "username=" +
-        username +
-        "&firstName=" +
-        firstName +
-        "&lastName=" +
-        lastName +
-        "&email=" +
-        email +
-        "&companyName=" +
-        companyName +
-        "&page=" +
-        page
-    );
     return axios
       .get(
         API_URL +
@@ -53,7 +37,7 @@ class UserService {
         { headers: authHeader() }
       )
       .then((response) => {
-        console.log(response.data.users);
+        //console.log(response.data.users);
         return response.data;
       });
   }
@@ -87,7 +71,7 @@ class UserService {
   }
 
   async saveUser(user) {
-    console.log(user);
+    //console.log(user);
     return axios
       .post(API_URL + "user/save", user, { headers: authHeader() })
       .then((response) => {

@@ -31,14 +31,14 @@ export default function UserList() {
   const [showCreateUserModal, setShowCreateUserModal] = useState(false);
 
   const fetchUsers = async () => {
-    console.log({
+    /*console.log({
       username,
       firstName,
       lastName,
       email,
       companyName,
       currentPage,
-    });
+    });*/
     const data = await userService.getUsers(
       username,
       firstName,

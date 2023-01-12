@@ -32,7 +32,7 @@ export default function VehicleFormModal({
         : data.registrationNumber,
       type: type ? type : data.type,
     };
-    console.log(vehicle);
+    //console.log(vehicle);
     //console.log("POPRAWIANIE", company);
     await vehicleService.updateVehicle(vehicle);
   };

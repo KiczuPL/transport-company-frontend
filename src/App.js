@@ -27,13 +27,13 @@ export default function App() {
   useEffect(() => {
     const API_URL = "http://localhost:8080/api/";
     if (token) {
-      console.log("wysyłam");
+      //console.log("wysyłam");
       axios
         .get(API_URL + "user/me", { headers: authHeader() })
         .then((response) => {
-          console.log("jest odp");
+          //console.log("jest odp");
           if (response.data) {
-            console.log("WCZYTYWANIE");
+            //console.log("WCZYTYWANIE");
             setIsAuthenticated(true);
             localStorage.setItem("user", JSON.stringify(response.data));
             setUser(response.data);
@@ -43,7 +43,7 @@ export default function App() {
         .catch((error) => {
           if (error.response) {
             if (error.response.status) {
-              console.log("STARY TOKEN");
+              //console.log("STARY TOKEN");
               setToken("");
               setIsAuthenticated(false);
             }
@@ -53,9 +53,8 @@ export default function App() {
   }, []);
 
   if (!isAuthenticated) {
-    console.log("nie ma autentykacji");
+    //console.log("nie ma autentykacji");
     if (token) return <>SOMETHING WENT WRONG</>;
-    console.log("NI MA TOKENA");
     return (
       <Login
         setToken={setToken}

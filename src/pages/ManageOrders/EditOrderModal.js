@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, ButtonGroup, Form, Modal } from "react-bootstrap";
 import orderService from "../../services/order.service";
 import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
@@ -39,6 +39,11 @@ export default function EditOrderModal({ data, closeModal, showModal }) {
     await orderService.updateOrder(order);
     closeModal();
   }
+
+  useEffect(() => {
+    setStatus(data.status);
+    setVehicleType(data.vehicleType);
+  }, [showModal]);
   return (
     <Modal show={showModal} onHide={closeModal}>
       <Modal.Header>
@@ -85,7 +90,7 @@ export default function EditOrderModal({ data, closeModal, showModal }) {
             <Form.Label>Status</Form.Label>
             <Form.Group />
             <ButtonGroup aria-label="Basic example">
-              {["PLACED", "IN_REALIZATION", "CANCELLED", "FINISHED"].map(
+              {["PLACED", "IN_REALIZATION", "FINISHED", "CANCELLED"].map(
                 (type) => (
                   <Button
                     variant={type === status ? "primary" : "outline-primary"}

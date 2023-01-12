@@ -22,7 +22,7 @@ export default function CreateOrder() {
       pickUpDate: pickUpDate,
       vehicleType: vehicleType,
     };
-    console.log(form);
+    //console.log(form);
     orderService.saveOrder(form);
     navigate(-1);
   }

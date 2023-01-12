@@ -23,7 +23,7 @@ export default function CompanyFormModal({
       address: address ? address : data.address,
       taxIdNumber: taxId ? taxId : data.taxIdNumber,
     };
-    console.log("POPRAWIANIE", company);
+    //console.log("POPRAWIANIE", company);
     await companyService.updateCompany(company);
   };
   const handleCreate = async () => {

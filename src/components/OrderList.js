@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import EditOrderModal from "../pages/ManageOrders/EditOrderModal";
 import { Col, Container, Form, FormGroup, Row } from "react-bootstrap";
 import ConfirmModal from "./ConfirmModal";
+import AssignVehicleModal from "../pages/ManageOrders/AssignVehicleModal";
 
 export default function OrderList(props) {
   const [orders, setOrders] = useState([]);
@@ -28,6 +29,7 @@ export default function OrderList(props) {
   const [totalPages, setTotalPages] = useState(0);
   const [openEditOrderModal, setOpenEditOrderModal] = useState(false);
   const [openDeleteOrderModal, setOpenDeleteOrderModal] = useState(false);
+  const [openAssignVehicleModal, setOpenAssignVehicleModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState({});
   const { isAdmin } = useContext(UserContext);
 
@@ -55,7 +57,7 @@ export default function OrderList(props) {
     }
     const data = response;
     const orders = data.orders;
-    console.log(orders);
+    //console.log(orders);
     setOrders(orders);
     setTotalPages(data.totalPages);
   };
@@ -216,6 +218,15 @@ export default function OrderList(props) {
                       }}
                     >
                       Edit
+                    </Button>{" "}
+                    <Button
+                      variant="info"
+                      onClick={() => {
+                        setSelectedOrder(s);
+                        setOpenAssignVehicleModal(true);
+                      }}
+                    >
+                      Assign vehicle
                     </Button>
                   </>
                 )}
@@ -242,6 +253,14 @@ export default function OrderList(props) {
         handleClose={() => setOpenDeleteOrderModal(false)}
         handleConfirm={handleDelete}
         dangerousAction={true}
+      />
+      <AssignVehicleModal
+        data={selectedOrder}
+        show={openAssignVehicleModal}
+        handleClose={() => {
+          setOpenAssignVehicleModal(false);
+          setLoading(true);
+        }}
       />
     </>
   );

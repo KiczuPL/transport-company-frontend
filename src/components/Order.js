@@ -10,6 +10,14 @@ export default function Order(props) {
       <p>Address to: {props.data.addressTo}</p>
       <p>Pick up date: {props.data.pickUpDate}</p>
       <p>Vehicle type: {props.data.vehicleType}</p>
+      <p>
+        Assigned vehicle:{" "}
+        {props.data.assignedVehicle
+          ? `${props.data.assignedVehicle.vehicleIdentifier} - ${
+              props.data.assignedVehicle.registrationNumber
+            } - ${capitalizeFirstLetter(props.data.assignedVehicle.type)}`
+          : "none"}
+      </p>
       <p>Status: {capitalizeFirstLetter(props.data.status)}</p>
     </>
   );

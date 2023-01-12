@@ -25,7 +25,7 @@ export default function Login({
     if (token) {
       //console.log(token);
       const loggedUser = await userService.getLoggedUserInfo();
-      console.log(loggedUser);
+      //console.log(loggedUser);
       setUser(loggedUser);
       setIsAdmin(loggedUser.roles[0].name === "Admin");
       setToken(token);

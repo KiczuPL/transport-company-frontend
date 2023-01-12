@@ -12,7 +12,6 @@ class OrderService {
     status,
     pageNumber
   ) {
-    console.log("POBIERAŃSKO");
     return axios
       .get(
         API_URL +
@@ -45,8 +44,8 @@ class OrderService {
     status,
     pageNumber
   ) {
-    console.log("POBIERAŃSKO");
-    console.log(authHeader());
+    //console.log("POBIERAŃSKO");
+    //console.log(authHeader());
     const payload = {
       companyName: companyName,
       addressFrom: addressFrom,
@@ -56,14 +55,14 @@ class OrderService {
       status: status,
       pageNumber: pageNumber,
     };
-    console.log(payload);
+    //(payload);
     return axios
       .post(API_URL + "order/all", payload, {
         headers: authHeader(),
       })
       .then((response) => {
         //console.log(response.data)
-        console.log(response);
+        // console.log(response);
         return response.data;
       });
   }
@@ -80,7 +79,7 @@ class OrderService {
   }
 
   async updateOrder(order) {
-    console.log(order);
+    //console.log(order);
     return axios
       .put(API_URL + "order/update", order, {
         headers: authHeader(),
@@ -94,6 +93,19 @@ class OrderService {
   async deleteOrder(id) {
     return axios
       .delete(API_URL + "order/" + id, {
+        headers: authHeader(),
+      })
+      .then((response) => {
+        //console.log(response.data)
+        return response.data;
+      });
+  }
+
+  async assignVehicle(orderId, vehicleId) {
+    const body = { orderId: orderId, vehicleId: vehicleId };
+    //console.log(body);
+    return axios
+      .post(API_URL + "order/assignvehicle", body, {
         headers: authHeader(),
       })
       .then((response) => {

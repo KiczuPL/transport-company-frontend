@@ -24,7 +24,7 @@ class CompanyService {
       )
       .then((response) => {
         //console.log(response.data)
-        console.log(response.data.companies);
+        // console.log(response.data.companies);
         return response.data;
       });
   }

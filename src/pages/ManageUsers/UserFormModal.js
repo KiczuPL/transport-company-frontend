@@ -70,6 +70,7 @@ export default function UserFormModal({
     );
     setCompanies(data.companies);
   };
+
   useEffect(() => {
     if (isLoading) {
       fetchCompanies().then(() => {
@@ -77,6 +78,7 @@ export default function UserFormModal({
       });
     }
   }, [isLoading]);
+
   useEffect(() => {
     if (data.company) setSearchedCompanyName(data.company.name);
   }, [show]);

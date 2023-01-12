@@ -40,7 +40,7 @@ export default function VehicleList() {
       currentPage
     );
     const vehicles = data.vehicles;
-    console.log(vehicles);
+    //console.log(vehicles);
     setVehicles(vehicles);
     setTotalPages(data.totalPages);
   };
