@@ -2,10 +2,9 @@ import React, { useContext } from "react";
 import { Button, Container } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link, redirect, useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/UserContext";
-import authService from "../../services/auth.service";
-import userService from "../../services/user.service";
+import { Link } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
+import authService from "../services/auth.service";
 
 export default function TopNavbar() {
   const { setToken, setUser, setIsAuthenticated, isAdmin } =
@@ -49,6 +48,9 @@ export default function TopNavbar() {
               </Nav.Link>
             </>
           )}
+          <Nav.Link as={Link} to="/home/passwd">
+            My password
+          </Nav.Link>
           <Nav.Item>
             <Button
               onClick={() => {

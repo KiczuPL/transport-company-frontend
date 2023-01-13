@@ -1,5 +1,5 @@
 import CompanyList from "./CompanyList";
-import TopNavbar from "../ManageVehicles/TopNavbar";
+import TopNavbar from "../../components/TopNavbar";
 
 export default function ManageCompanies() {
   return (

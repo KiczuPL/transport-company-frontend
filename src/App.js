@@ -17,6 +17,7 @@ import userService from "./services/user.service";
 import axios from "axios";
 import authHeader from "./services/auth-header";
 import ManageVehicles from "./pages/ManageVehicles/ManageVehicles";
+import ChangePassword from "./pages/ChangePassword/ChangePassword";
 
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem("accessToken"));
@@ -91,6 +92,7 @@ export default function App() {
         <Route exact path="/home/orders/closed" element={<ClosedOrders />} />
         <Route exact path="/home/manage/orders" element={<ManageOrders />} />
         <Route exact path="/home/manage/users" element={<ManageUsers />} />
+        <Route exact path="/home/passwd" element={<ChangePassword />} />
         <Route
           exact
           path="/home/manage/vehicles"
